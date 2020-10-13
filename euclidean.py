@@ -8,4 +8,4 @@ def gcd(num1,num2):
         return num2
     return gcd(num2%num1,num1)
 
-file2.write(str(gcd(a,b)))
+file2.write("GCD("+str(a)+","+str(b)+") ="+str(gcd(a,b)))
