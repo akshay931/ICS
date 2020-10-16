@@ -1,7 +1,12 @@
-file1 = open("input",'r')
 file2 = open("output",'w')
-for line in file1:
-    a,b=(int(x) for x in line.split(" "))
+num1=[];
+num2=[];
+with open("input",'r') as file1:
+    number = file1.readline()
+    for index,line in enumerate(file1):
+        line = line.split()
+        num1.append(line[0])
+        num2.append(line[1])
 def extended(num1,num2):
     if(num1==0):
         return num2,0,1
@@ -15,7 +20,10 @@ def modinverse(a,m):
         print("multiplicative inverse not exist")
     else:
         return x%m
-inv = modinverse(a,b)
-g,x,y = extended(a,b)
-file2.write("GCD("+str(a)+","+str(b)+") = "+str(g)+"\n")
-file2.write("Multiplicative inverse of "+str(a)+" modulo "+str(b)+" is "+str(inv))
+#file2.write("GCD("+str(a)+","+str(b)+") = "+str(g)+"\n")
+#file2.write("Multiplicative inverse of "+str(a)+" modulo "+str(b)+" is "+str(inv))
+for index,x in enumerate(num1):
+    inv = modinverse(int(x),int(num2[index]))
+    g,x,y = extended(int(x),int(num2[index]))
+    file2.write(str(index)+" GCD("+str(num1[index])+","+str(num2[index])+") = "+str(g)+"\n")
+    file2.write(str(index)+" Multiplicative inverse of "+str(num1[index])+" modulo "+str(num2[index])+" is "+str(inv)+"\n\n")
