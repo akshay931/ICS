@@ -95,7 +95,6 @@ def decrypt():
             print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=" ")    
             file2.write("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]))    
         i=i+2        
-
 while(1):
     choice=int(input("\n 1.Encryption \n 2.Decryption: \n 3.EXIT \n Enter Your Choice: "))
     
