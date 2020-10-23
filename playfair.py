@@ -43,58 +43,65 @@ def encrypt():
     name1=str(input("ENTER filename : "))
     file1 = open(name1,'r')
     file2 = open("encrypt-output",'w')
-    msg = str(file1.readline().rstrip())
-    msg=msg.upper()
-    msg=msg.replace(" ", "")             
-    i=0
-    for s in range(0,len(msg)+1,2):
-        if s<len(msg)-1:
-            if msg[s]==msg[s+1]:
-                msg=msg[:s+1]+'X'+msg[s+1:]
-    if len(msg)%2!=0:
-        msg=msg[:]+'X'
-    print("CIPHER TEXT:",end=' ')
-    while i<len(msg):
-        loc=list()
-        loc=locindex(msg[i])
-        loc1=list()
-        loc1=locindex(msg[i+1])
-        if loc[1]==loc1[1]:
-            print("{}{}".format(my_matrix[(loc[0]+1)%5][loc[1]],my_matrix[(loc1[0]+1)%5][loc1[1]]),end=' ')
-            file2.write("{}{}".format(my_matrix[(loc[0]+1)%5][loc[1]],my_matrix[(loc1[0]+1)%5][loc1[1]]))
-        elif loc[0]==loc1[0]:
-            print("{}{}".format(my_matrix[loc[0]][(loc[1]+1)%5],my_matrix[loc1[0]][(loc1[1]+1)%5]),end=' ')  
-            file2.write("{}{}".format(my_matrix[loc[0]][(loc[1]+1)%5],my_matrix[loc1[0]][(loc1[1]+1)%5]))  
-        else:
-            print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=' ')    
-            file2.write("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]))    
-        i=i+2        
+
+    print("CIPHER TEXT:")
+    for line in file1:
+        msg = str(line.rstrip())
+        msg=msg.upper()
+        msg=msg.replace(" ", "")             
+        i=0
+        for s in range(0,len(msg)+1,2):
+            if s<len(msg)-1:
+                if msg[s]==msg[s+1]:
+                    msg=msg[:s+1]+'X'+msg[s+1:]
+        if len(msg)%2!=0:
+            msg=msg[:]+'X'
+        
+        while i<len(msg):
+            loc=list()
+            loc=locindex(msg[i])
+            loc1=list()
+            loc1=locindex(msg[i+1])
+            if loc[1]==loc1[1]:
+                print("{}{}".format(my_matrix[(loc[0]+1)%5][loc[1]],my_matrix[(loc1[0]+1)%5][loc1[1]]),end=' ')
+                file2.write("{}{}".format(my_matrix[(loc[0]+1)%5][loc[1]],my_matrix[(loc1[0]+1)%5][loc1[1]]))
+            elif loc[0]==loc1[0]:
+                print("{}{}".format(my_matrix[loc[0]][(loc[1]+1)%5],my_matrix[loc1[0]][(loc1[1]+1)%5]),end=' ')  
+                file2.write("{}{}".format(my_matrix[loc[0]][(loc[1]+1)%5],my_matrix[loc1[0]][(loc1[1]+1)%5]))  
+            else:
+                print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=' ')    
+                file2.write("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]))    
+            i=i+2  
+        print()
+        file2.write("\n")
                  
 def decrypt():  
     name1=str(input("ENTER filename : "))
     file1 = open(name1,'r')
     file2 = open("decrypt-output",'w')
-    msg=str(file1.readline().rstrip())
-    print(msg)
-    msg=msg.upper()
-    msg=msg.replace(" ", "")
-    print("PLAIN TEXT:",end=' ')
-    i=0
-    while i<len(msg):
-        loc=list()
-        loc=locindex(msg[i])
-        loc1=list()
-        loc1=locindex(msg[i+1])
-        if loc[1]==loc1[1]:
-            print("{}{}".format(my_matrix[(loc[0]-1)%5][loc[1]],my_matrix[(loc1[0]-1)%5][loc1[1]]),end=' ')
-            file2.write("{}{}".format(my_matrix[(loc[0]-1)%5][loc[1]],my_matrix[(loc1[0]-1)%5][loc1[1]]))
-        elif loc[0]==loc1[0]:
-            print("{}{}".format(my_matrix[loc[0]][(loc[1]-1)%5],my_matrix[loc1[0]][(loc1[1]-1)%5]),end=" ")  
-            file2.write("{}{}".format(my_matrix[loc[0]][(loc[1]-1)%5],my_matrix[loc1[0]][(loc1[1]-1)%5]))  
-        else:
-            print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=" ")    
-            file2.write("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]))    
-        i=i+2        
+    print("PLAIN TEXT:")
+    for line in file1:
+        msg=str(line.rstrip())
+        msg=msg.upper()
+        msg=msg.replace(" ", "")
+        i=0
+        while i<len(msg):
+            loc=list()
+            loc=locindex(msg[i])
+            loc1=list()
+            loc1=locindex(msg[i+1])
+            if loc[1]==loc1[1]:
+                print("{}{}".format(my_matrix[(loc[0]-1)%5][loc[1]],my_matrix[(loc1[0]-1)%5][loc1[1]]),end=' ')
+                file2.write("{}{}".format(my_matrix[(loc[0]-1)%5][loc[1]],my_matrix[(loc1[0]-1)%5][loc1[1]]))
+            elif loc[0]==loc1[0]:
+                print("{}{}".format(my_matrix[loc[0]][(loc[1]-1)%5],my_matrix[loc1[0]][(loc1[1]-1)%5]),end=" ")  
+                file2.write("{}{}".format(my_matrix[loc[0]][(loc[1]-1)%5],my_matrix[loc1[0]][(loc1[1]-1)%5]))  
+            else:
+                print("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]),end=" ")    
+                file2.write("{}{}".format(my_matrix[loc[0]][loc1[1]],my_matrix[loc1[0]][loc[1]]))    
+            i=i+2        
+        print("\n")
+        file2.write("\n")
 while(1):
     choice=int(input("\n 1.Encryption \n 2.Decryption: \n 3.EXIT \n Enter Your Choice: "))
     
